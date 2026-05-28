@@ -31,7 +31,11 @@ target site.
 - Baseline store: one wiki page per route at `qa-baselines/<slug>`, where `<slug>` is the
   path with `.html` removed and non-alphanumerics → `-` (e.g. `activity-log.html` → `activity-log`,
   `index.html` → `index`). The page body is the route's last-APPROVED aria snapshot inside a
-  ```` ```yaml ```` block.
+  ```` ```yaml ```` block — **store the aria TREE ONLY, with no url/metadata header lines**.
+  (Verified failure mode: if the stored snapshot includes a `# url:`/environment header, an
+  unrelated environment difference makes every page look "changed". Compare aria bodies only.)
+- Diffing rule: compare the aria TREE bodies semantically (roles, accessible names, fields,
+  links, headings, controls). Ignore any comment/metadata lines and pure attribute noise.
 - Card title (idempotency key): `[<feature>] <change-kind>: <route name>` where change-kind is
   `New feature` or `Change detected`.
 - Library target (written later, by the approval task — NOT here): `test-scenario-library/<feature>`.

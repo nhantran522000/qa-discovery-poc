@@ -1,0 +1,25 @@
+# route: dashboard.html
+# feature: dashboard-homepage
+# url: https://nhantran522000.github.io/caredocs-qa-discovery-poc/dashboard.html
+
+- banner:
+  - paragraph: BramblewoodCare
+  - navigation "Main navigation":
+    - list:
+      - listitem:
+        - link "Profile":
+          - /url: profile.html
+      - listitem:
+        - link "Settings":
+          - /url: settings.html
+      - listitem:
+        - link "Residents":
+          - /url: residents.html
+- main:
+  - region "Welcome back, Dana":
+    - heading "Welcome back, Dana" [level=2]
+    - paragraph: You have 3 residents under your care this shift.
+    - list:
+      - listitem: "Next medication round: 14:00"
+      - listitem: "Open handover notes: 2"
+      - listitem: "Care plans due for review: 1"

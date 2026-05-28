@@ -1,0 +1,26 @@
+# route: settings.html
+# feature: settings
+# url: https://nhantran522000.github.io/caredocs-qa-discovery-poc/settings.html
+
+- banner:
+  - paragraph: BramblewoodCare
+  - navigation "Main navigation":
+    - list:
+      - listitem:
+        - link "Dashboard":
+          - /url: dashboard.html
+      - listitem:
+        - link "Profile":
+          - /url: profile.html
+      - listitem:
+        - link "Residents":
+          - /url: residents.html
+- main:
+  - region "Settings":
+    - heading "Settings" [level=2]
+    - text: Push notifications
+    - switch "Push notifications" [checked]: "On"
+    - text: Dark mode
+    - switch "Dark mode": "Off"
+    - text: Weekly email digest
+    - switch "Weekly email digest": "Off"

@@ -1,0 +1,25 @@
+# route: profile.html
+# feature: user-profile
+# url: https://nhantran522000.github.io/caredocs-qa-discovery-poc/profile.html
+
+- banner:
+  - paragraph: BramblewoodCare
+  - navigation "Main navigation":
+    - list:
+      - listitem:
+        - link "Dashboard":
+          - /url: dashboard.html
+      - listitem:
+        - link "Settings":
+          - /url: settings.html
+      - listitem:
+        - link "Residents":
+          - /url: residents.html
+- main:
+  - region "Your profile":
+    - heading "Your profile" [level=2]
+    - text: Full name
+    - paragraph: Dana Whitmore
+    - text: Email address
+    - paragraph: dana.whitmore@bramblewood.example
+    - button "Edit"

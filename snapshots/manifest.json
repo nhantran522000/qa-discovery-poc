@@ -1,0 +1,35 @@
+{
+  "baseUrl": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/",
+  "capturedRoutes": [
+    {
+      "path": "index.html",
+      "feature": "authentication-access",
+      "slug": "index",
+      "url": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/index.html"
+    },
+    {
+      "path": "dashboard.html",
+      "feature": "dashboard-homepage",
+      "slug": "dashboard",
+      "url": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/dashboard.html"
+    },
+    {
+      "path": "profile.html",
+      "feature": "user-profile",
+      "slug": "profile",
+      "url": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/profile.html"
+    },
+    {
+      "path": "settings.html",
+      "feature": "settings",
+      "slug": "settings",
+      "url": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/settings.html"
+    },
+    {
+      "path": "residents.html",
+      "feature": "residents-register",
+      "slug": "residents",
+      "url": "https://nhantran522000.github.io/caredocs-qa-discovery-poc/residents.html"
+    }
+  ]
+}

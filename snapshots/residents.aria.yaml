@@ -1,0 +1,39 @@
+# route: residents.html
+# feature: residents-register
+# url: https://nhantran522000.github.io/caredocs-qa-discovery-poc/residents.html
+
+- banner:
+  - paragraph: BramblewoodCare
+  - navigation "Main navigation":
+    - list:
+      - listitem:
+        - link "Dashboard":
+          - /url: dashboard.html
+      - listitem:
+        - link "Profile":
+          - /url: profile.html
+      - listitem:
+        - link "Settings":
+          - /url: settings.html
+- main:
+  - region "Residents register":
+    - heading "Residents register" [level=2]
+    - table:
+      - rowgroup:
+        - row "Name Room Key worker":
+          - columnheader "Name"
+          - columnheader "Room"
+          - columnheader "Key worker"
+      - rowgroup:
+        - row "Arthur Penhale 12 Dana Whitmore":
+          - cell "Arthur Penhale"
+          - cell "12"
+          - cell "Dana Whitmore"
+        - row "Maud Selby 07 Raj Patel":
+          - cell "Maud Selby"
+          - cell "07"
+          - cell "Raj Patel"
+        - row "Cynthia Roe 21 Dana Whitmore":
+          - cell "Cynthia Roe"
+          - cell "21"
+          - cell "Dana Whitmore"

@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 tooling/test-results/
 tooling/playwright-report/
+# Screenshots are regenerable human-review artifacts — keep the text aria baselines, not binaries
+snapshots/*.png

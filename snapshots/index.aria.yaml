@@ -1,0 +1,15 @@
+# route: index.html
+# feature: authentication-access
+# url: https://nhantran522000.github.io/caredocs-qa-discovery-poc/index.html
+
+- banner:
+  - paragraph: BramblewoodCare
+- main:
+  - region "Sign in to your account":
+    - heading "Sign in to your account" [level=2]
+    - paragraph: Use your staff email and password to continue.
+    - text: Email address
+    - textbox "Email address"
+    - text: Password
+    - textbox "Password"
+    - button "Submit"

@@ -105,11 +105,31 @@ Wait for Pages to redeploy (~1 min).
 - **Idempotency:** approve the 4 cards, write-back, then run discovery a third time with no
   further site changes → expect **0** new cards.
 
+## Local verification result (2026-05-29)
+
+The canonical aria-snapshot diff was validated locally (v1 vs v2 served side-by-side) before
+any Wolfpack wiring. It isolated **exactly** the ground-truth change-set:
+
+| Route | Aria diff | Expected | Result |
+|---|---|---|---|
+| Login | `button "Submit"` → `button "Sign In"` | label change | ✅ |
+| Dashboard | `+ link "Activity Log"` | new element | ✅ |
+| Profile | `+ text "Date of birth"` + value | new field | ✅ |
+| Activity Log | new (no baseline) | new feature | ✅ |
+| Settings | identical | control | ✅ no false positive |
+| Residents | identical | control | ✅ no false positive |
+
+**Precision 4/4, recall 4/4, 0 false positives.** Finding: store the aria **tree only** in the
+baseline — a `# url:`/environment header in the stored snapshot pollutes the diff (every page
+reads as "changed"). Folded into the skill's baseline-format + diffing rules.
+
 ## Status
 
 - [x] Sample site (v1) + v2 change-set + ground truth
 - [x] Snapshot tooling (local reference impl)
 - [x] Wolfpack skill + discovery task + approval/write-back task (paste-ready)
 - [x] Deployed to GitHub Pages — https://nhantran522000.github.io/caredocs-qa-discovery-poc/
-- [ ] Wolfpack baseline run
-- [ ] Detection run + precision/recall scored
+- [x] Local aria-diff verification — precision/recall 4/4, controls clean
+- [ ] Wolfpack baseline run (against live v1)
+- [ ] Inject v2 (`bash changeset-v2/apply-v2.sh && git push origin main && git push deploy main`)
+- [ ] Wolfpack detection run + precision/recall scored on-platform
