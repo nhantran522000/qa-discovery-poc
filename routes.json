@@ -1,0 +1,11 @@
+{
+  "site": "Bramblewood Care — sample app for QA change-detection PoC",
+  "version": "v1",
+  "routes": [
+    { "path": "index.html",     "name": "Login",     "feature": "authentication-access" },
+    { "path": "dashboard.html", "name": "Dashboard", "feature": "dashboard-homepage" },
+    { "path": "profile.html",   "name": "Profile",   "feature": "user-profile" },
+    { "path": "settings.html",  "name": "Settings",  "feature": "settings" },
+    { "path": "residents.html", "name": "Residents", "feature": "residents-register" }
+  ]
+}

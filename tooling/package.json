@@ -1,0 +1,13 @@
+{
+  "name": "qa-discovery-poc-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright snapshot tooling for the QA change-detection PoC",
+  "scripts": {
+    "snapshot": "node snapshot.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

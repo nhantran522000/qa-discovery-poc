@@ -1,0 +1,2 @@
+# Baseline aria snapshots (the agent's "memory" of the last approved state) land here.
+# Populated by: node tooling/snapshot.mjs --base-url <pages-url> --out ../snapshots

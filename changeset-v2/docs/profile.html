@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · Bramblewood Care</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="brand">Bramblewood<span>Care</span></p>
+    <nav class="primary" aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="residents.html">Residents</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card stack" aria-labelledby="profile-heading">
+      <h2 id="profile-heading">Your profile</h2>
+
+      <div class="field">
+        <label for="full-name">Full name</label>
+        <p class="readonly-value" id="full-name">Dana Whitmore</p>
+      </div>
+      <div class="field">
+        <label for="staff-email">Email address</label>
+        <p class="readonly-value" id="staff-email">dana.whitmore@bramblewood.example</p>
+      </div>
+      <!-- CHANGE 3: new read-only field "Date of birth" -->
+      <div class="field">
+        <label for="dob">Date of birth</label>
+        <p class="readonly-value" id="dob">14 March 1981</p>
+      </div>
+
+      <button class="btn secondary" type="button" data-edit-profile>Edit</button>
+      <p data-edit-notice hidden role="status">Editing is not available in this demo.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

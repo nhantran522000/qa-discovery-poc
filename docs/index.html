@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in · Bramblewood Care</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="brand">Bramblewood<span>Care</span></p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="login-heading">
+      <h2 id="login-heading">Sign in to your account</h2>
+      <p class="muted">Use your staff email and password to continue.</p>
+
+      <form data-login-form novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity Log · Bramblewood Care</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <p class="brand">Bramblewood<span>Care</span></p>
+    <nav class="primary" aria-label="Main navigation">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="residents.html">Residents</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CHANGE 4: entirely new feature page (activity log) -->
+  <main>
+    <section class="card stack" aria-labelledby="activity-heading">
+      <h2 id="activity-heading">Activity log</h2>
+      <p class="muted">Recent actions recorded against your account.</p>
+
+      <form class="field" data-activity-filter>
+        <label for="activity-range">Show entries from</label>
+        <select id="activity-range" name="range">
+          <option value="today">Today</option>
+          <option value="week">This week</option>
+          <option value="month">This month</option>
+        </select>
+      </form>
+
+      <table>
+        <thead>
+          <tr><th scope="col">Time</th><th scope="col">Action</th><th scope="col">Resident</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>13:10</td><td>Medication administered</td><td>Arthur Penhale</td></tr>
+          <tr><td>12:35</td><td>Handover note added</td><td>Maud Selby</td></tr>
+          <tr><td>11:50</td><td>Care plan reviewed</td><td>Cynthia Roe</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
