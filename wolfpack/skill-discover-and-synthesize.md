@@ -35,7 +35,9 @@ target site.
   STOP — you already have the snapshot; move on to the diff.
 
 ## Inputs (the task prompt supplies these)
-- base_url: root URL of the deployed app (e.g. the GitHub Pages URL).
+- repo_url: PUBLIC git repo whose `docs/` holds the site. Cloned locally (see Setup) so we
+  browse via `file://` and avoid the container's flaky external browser egress (ERR_TUNNEL).
+- base_url: the LOCAL base to browse — `file:///tmp/qa-site/docs/` (the task sets this).
 - routes: list of { path, name, feature } to visit.
 - project_slug: `agent-incubator` (where work items + wiki pages live).
 
@@ -63,6 +65,15 @@ STOP and exit immediately with a one-line report — do NOT keep retrying toward
 time limit. A clean early exit is always correct; the next scheduled run retries. Total budget
 per run: a few minutes and well under ~10 tool calls. If you find yourself past that, STOP.
 
+0. **Local-site setup** (once per run — this is what avoids the container's flaky browser
+   egress to the public site). With Bash:
+   `rm -rf /tmp/qa-site && git clone --depth 1 <repo_url> /tmp/qa-site`
+   The repo is PUBLIC — no auth, and `git` egress works in this container even though the
+   browser's external egress does not. Retry the clone ≤2× then STOP with `repo-clone-failed`
+   if it won't clone. The site is then at `/tmp/qa-site/docs/` and you browse it via the local
+   `file://` scheme (`base_url` already points there) — local file access, no network, immune
+   to `ERR_TUNNEL`. (Fallback ONLY if `file://` navigation is rejected:
+   `cd /tmp/qa-site/docs && python3 -m http.server 8000 &` then use `http://127.0.0.1:8000/`.)
 1. Find the next route that needs work. Call `list_work_items` ONCE (project_slug, open
    statuses `new`/`doing`/`blocked`) and note which routes already have a discovery card
    (title starts `[<feature>] `). Walk `routes` IN ORDER and pick the FIRST route that does
@@ -71,14 +82,12 @@ per run: a few minutes and well under ~10 tool calls. If you find yourself past 
    open card, STOP and report "all routes covered — nothing to do".
 2. Observe that ONE route: `browser_navigate` to `base_url + path`, then exactly ONE
    `browser_snapshot` (no JS — see the Observation rules above).
-   - **If navigation fails** (`ERR_TUNNEL_CONNECTION_FAILED`, connection refused/reset, DNS,
-     or a load timeout): retry the navigate AT MOST 2× with a single 5s wait between tries.
-     If it STILL fails, **STOP the entire run immediately** and report
-     `site-unreachable: <error>` — do NOT keep retrying, do NOT try other routes, and do NOT
-     create or `blocked` any card. An unreachable site is transient/environmental; the next
-     scheduled run retries. **This is the rule that stops runs from grinding to the 30-minute cap.**
-   - A clean HTTP **404** on the page is different from unreachable → treat it as
-     `not-deployed` for that route, report it, and STOP (the next run retries).
+   - You browse local `file://`, so there is no network/proxy to fail. If the page **file is
+     missing** from the cloned `docs/` (route not present), treat it as `not-deployed` for that
+     route, report it, and STOP (the next run retries).
+   - If navigation otherwise errors and won't recover after ≤2 quick retries, **STOP the run
+     immediately** with `site-unreachable: <error>` — never keep retrying toward the 30-minute
+     cap, never `blocked` a card. **This is the rule that stops runs grinding to the timeout.**
 3. Load its baseline: `get_wiki_page` for `qa-baselines/<slug>`.
    - On MCP timeout, retry 3× with 5/10/20s backoff. If it still times out, STOP and report
      `transient-mcp-timeout` for this route — do NOT skip it; the next run retries it.

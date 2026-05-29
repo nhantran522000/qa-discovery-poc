@@ -11,8 +11,10 @@ You are the change-detection + test-synthesis worker for the QA discovery PoC. L
 the `discover-and-synthesize-tests` skill (use get_skill; if it times out, retry up to 3×
 with 5/10/20s backoff).
 
-Target app (deployed sample site):
-  base_url: https://nhantran522000.github.io/qa-discovery-poc/
+Target app (served LOCALLY via file:// — the container's external browser egress is flaky
+(ERR_TUNNEL), so the skill git-clones the repo and browses the local files):
+  repo_url: https://github.com/wolf-logic/qa-discovery-poc.git
+  base_url: file:///tmp/qa-site/docs/
   project_slug: agent-incubator
   routes:
     - { path: index.html,        name: Login,        feature: authentication-access }
@@ -27,8 +29,9 @@ Repeated scheduled runs walk through every route until all are covered — so th
 to run on a schedule, not once.
 
 Notes:
-- If a route 404s (e.g. activity-log.html before the v2 deploy), record it as "not-deployed"
-  and STOP without a card; the next run retries it.
+- The skill clones repo_url to /tmp/qa-site (Bash + git) and browses file:///tmp/qa-site/docs/.
+  **Bash must be ENABLED on this task** for the clone. If a route's file is missing from the
+  clone, record it "not-deployed" and STOP without a card; the next run retries it.
 - Browse read-only: browser_navigate + browser_snapshot only. Never submit forms or log in.
 - Leave new cards in `new` for human review.
 - If a category is required by create_work_item, call list_categories(agent-incubator) and
@@ -56,9 +59,11 @@ change-detection. (Slow it to hourly/daily once seeded.)
   `[authentication-access] New feature: Login`). Capable models (Kimi, Sonnet) do the
   `list_work_items` dedup correctly. The dedup `list_work_items` call still lacks an explicit
   retry/timeout guard (only `get_skill`/`get_wiki_page` have one) — harden if dups recur.
-- Intermittent container network errors reaching the live site (`ERR_TUNNEL_CONNECTION_FAILED`)
-  — transient; the skill should treat an unreachable site like a not-deployed route and retry
-  next run.
+- Container browser egress to the public site is flaky (`ERR_TUNNEL_CONNECTION_FAILED`) and
+  caused 30-min timeout spins. **Resolved (2026-05-29) by serving the site locally:** the skill
+  git-clones the repo and browses `file:///tmp/qa-site/docs/` — local file access, no network,
+  immune to the egress issue. (`git` egress works in the container even though the browser's
+  does not.)
 
-**Disabled tools (recommended):** keep the **Playwright MCP**, **Wiki**, **Work items**,
-**Skills** (get_skill), **Organisation** (list_categories). Disable the rest.
+**Disabled tools (recommended):** keep **Bash** (for `git clone`), **Playwright MCP**, **Wiki**,
+**Work items**, **Skills** (get_skill), **Organisation** (list_categories). Disable the rest.
