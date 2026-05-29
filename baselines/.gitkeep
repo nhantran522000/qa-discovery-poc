@@ -1,0 +1,4 @@
+# Last-APPROVED aria snapshots, one per route: <slug>.aria.yaml (slug = path minus .html).
+# The v3 discovery task reads these from the local git clone (no wiki/MCP). A page with no
+# file here is treated as NEW. On human approval, the candidate snapshot from the work item is
+# committed here as the new baseline. Empty during the initial seeding phase.
